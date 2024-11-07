@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ToastAndroid } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
 const App = () => {
-    const [selectedUserType, setSelectedUserType] = useState('Admin');
+    const [selectedUserType, setSelectedUserType] = useState('Admin'); // State for user type
+    const [userName, setUserName] = useState(''); // State for user name
     const [password, setPassword] = useState('');
 
     const handleLogin = () => {
-        // Display a personalized welcome message based on the selected user type
-        if (selectedUserType === 'Admin') {
-            Alert.alert("Welcome Admin!");
-        } else if (selectedUserType === 'Guest') {
-            Alert.alert("Welcome Guest!");
-        }
+        // Show a personalized toast message based on user type and user name
+        ToastAndroid.show(`Welcome ${selectedUserType} ${userName}`, ToastAndroid.SHORT);
     };
 
     return (
@@ -35,6 +32,23 @@ const App = () => {
                 <Picker.Item label="Guest" value="Guest" />
             </Picker>
 
+            {/* User Name Label and TextInput */}
+            <Text style={{ fontSize: 18, marginBottom: 10 }}>User Name:</Text>
+            <TextInput
+                style={{
+                    width: 250,
+                    height: 40,
+                    borderColor: '#ccc',
+                    borderWidth: 1,
+                    paddingHorizontal: 10,
+                    borderRadius: 5,
+                    marginBottom: 20,
+                }}
+                placeholder="Enter user name"
+                value={userName}
+                onChangeText={(text) => setUserName(text)}
+            />
+
             {/* Password Label and TextInput */}
             <Text style={{ fontSize: 18, marginBottom: 10 }}>Password:</Text>
             <TextInput
@@ -53,8 +67,10 @@ const App = () => {
                 onChangeText={(text) => setPassword(text)}
             />
 
-            {/* Log In Button */}
-            <Button title="LOG IN" onPress={handleLogin} />
+            {/* Log In TouchableOpacity */}
+            <TouchableOpacity onPress={handleLogin} style={{ padding: 10, backgroundColor: '#007AFF', borderRadius: 5 }}>
+                <Text style={{ color: '#fff', fontSize: 18 }}>LOG IN</Text>
+            </TouchableOpacity>
         </View>
     );
 };
