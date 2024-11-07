@@ -7,8 +7,12 @@ const App = () => {
     const [password, setPassword] = useState('');
 
     const handleLogin = () => {
-        // Display alert with welcome message
-        Alert.alert("Welcome!");
+        // Display a personalized welcome message based on the selected user type
+        if (selectedUserType === 'Admin') {
+            Alert.alert("Welcome Admin!");
+        } else if (selectedUserType === 'Guest') {
+            Alert.alert("Welcome Guest!");
+        }
     };
 
     return (
